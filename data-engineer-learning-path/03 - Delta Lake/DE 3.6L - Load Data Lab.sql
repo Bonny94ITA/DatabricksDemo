@@ -64,7 +64,9 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+CREATE SCHEMA IF NOT EXISTS ${da.schema_name}_default_location;
+CREATE OR REPLACE TABLE events_raw (key BINARY, offset BIGINT, partition INT, timestamp BIGINT, topic STRING, value BINARY);
+SELECT * FROM events_raw;
 
 -- COMMAND ----------
 
@@ -103,7 +105,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+INSERT INTO events_raw
+SELECT * FROM events_json
 
 -- COMMAND ----------
 
@@ -115,7 +118,7 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+SELECT * FROM events_raw
 
 -- COMMAND ----------
 
@@ -154,7 +157,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN> ${da.paths.datasets}/ecommerce/raw/item-lookup
+CREATE OR REPLACE TABLE item_lookup SELECT * FROM parquet.`${da.paths.datasets}/ecommerce/raw/item-lookup`;
+SELECT * FROM item_lookup
 
 -- COMMAND ----------
 
